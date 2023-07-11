@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Loot : MonoBehaviour
 {
+    [SerializeField] private bool isRotating;
+    [SerializeField] private float rotateSpeed = 20;
     [SerializeField] private int _value = 100;
     public int ItemValue => _value;    
     
@@ -17,7 +19,16 @@ public class Loot : MonoBehaviour
         get { return _isAvaliable; }
         set { _isAvaliable = value; }
     }
-    
 
-    
+    private void Start() {
+        if(isRotating) StartCoroutine(RotateCoroutine());
+    }
+    private IEnumerator RotateCoroutine()
+    {
+        while (true)
+        {
+            transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }
